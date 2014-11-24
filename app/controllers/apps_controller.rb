@@ -21,6 +21,10 @@ class AppsController < ApplicationController
     redirect_to App.find(params[:id]).app.expiring_url(300)
   end
 
+  def download_instrumented
+    redirect_to App.find(params[:id]).instrumented_app.app.expiring_url(300)
+  end
+
   def destroy
     App.find(params[:id]).destroy
     @apps = App.all

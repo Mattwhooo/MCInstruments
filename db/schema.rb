@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141122042643) do
+ActiveRecord::Schema.define(version: 20141124154603) do
 
   create_table "apps", force: true do |t|
     t.datetime "created_at"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20141122042643) do
     t.string   "app_content_type"
     t.integer  "app_file_size"
     t.datetime "app_updated_at"
+    t.integer  "app_id"
   end
 
 end

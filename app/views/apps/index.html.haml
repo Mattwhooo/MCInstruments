@@ -1,7 +1,10 @@
 
 - @apps.each do |app|
-  %h1
-    = link_to app.app_file_name, app_path(app), method: :delete
+  %h3
+    = app.app_file_name
+
     = link_to 'Download App', download_path(app)
+    = link_to 'Download Instrumented App', instrumented_download_path(app) if app.instrumented_app
+    = link_to 'Delete', app_path(app), method: :delete
 
 = link_to 'New App', new_app_path

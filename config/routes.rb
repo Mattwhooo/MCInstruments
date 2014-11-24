@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :apps
   get 'app/:id/download' => 'apps#download', as: :download
+  get 'app/:id/instrumented' => 'apps#download_instrumented', as: :instrumented_download
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
