@@ -2,13 +2,32 @@
 
 = s3_uploader_form callback_url: apps_path, callback_param: "app[direct_upload_url]", id: "s3_uploader" do
   = file_field_tag :file, multiple: true
+#spinner_holder{style: 'display:none'}
+  .spinner
+    .inner
+    .outer
 #uploads_container
   %script#template-upload{ :type => "text/x-tmpl"}
     %div{ :id => "upload_{%=o.unique_id%}", :class => "upload"}
       {%=o.name%}
+
       .progress.progress-striped.active
         .bar{:style => "width: 0%"}
-
+#results{style: 'display:none'}
+  = link_to 'Download Instrumented App', '', id: 'download_link'
 
 :javascript
   $('#s3_uploader').S3Uploader()
+  $('#s3_uploader').bind('s3_uploads_start', function(data){
+    $('#spinner_holder').fadeIn()
+  })
+  $('#s3_uploader').bind('s3_uploads_complete', function(data){
+    //alert("complete")
+  })
+  $('#s3_uploader').bind("ajax:success", function(e, data){
+    $("#download_link").attr("href", data['download_url'])
+    $('#spinner_holder').fadeOut('slow', function(){
+      $('#results').fadeIn()
+    })
+    //alert(data['download_url'])
+  })

@@ -14,7 +14,8 @@ class AppsController < ApplicationController
     app.app_file_size = params[:filesize]
     app.direct_upload_url = params[:app][:direct_upload_url]
     app.save
-    redirect_to (:back)
+
+    render json: {download_url: app.instrumented_app.app.expiring_url(300)}.to_json
   end
 
   def download
