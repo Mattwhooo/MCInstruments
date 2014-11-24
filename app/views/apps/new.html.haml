@@ -1,33 +1,96 @@
 %h1 New
 
-= s3_uploader_form callback_url: apps_path, callback_param: "app[direct_upload_url]", id: "s3_uploader" do
-  = file_field_tag :file, multiple: true
-#spinner_holder{style: 'display:none'}
-  .spinner
-    .inner
-    .outer
-#uploads_container
-  %script#template-upload{ :type => "text/x-tmpl"}
-    %div{ :id => "upload_{%=o.unique_id%}", :class => "upload"}
-      {%=o.name%}
+#dropzone.well.well-lg{style: 'width:500px;height:500px'}
+  %h4
+    .orasi_logo{style:'margin-right:10px'}= image_tag 'Logo.png'
+    iOS Instrumentor
+  %hr
+  #input{style: 'text-align: center;'}
+    #drop_or_browse
+      Drop your files here or Browse for file
+      = s3_uploader_form callback_url: apps_path, callback_param: "app[direct_upload_url]", id: "s3_uploader" do
+        = file_field_tag :file, multiple: true
+    #drop{style: 'visibility:hidden'}
+      Drop your file here!
 
-      .progress.progress-striped.active
-        .bar{:style => "width: 0%"}
-#results{style: 'display:none'}
-  = link_to 'Download Instrumented App', '', id: 'download_link'
+  #spinner_holder{style: 'display:none'}
+    .spinner
+      .inner
+      .outer
+
+  #results{style: 'display:none'}
+    = link_to '', id: 'download_link' do
+      = image_tag 'Downloads.png', style: 'width:100px;height:100px'
+      .text
+        Download for MobileCenter
+
 
 :javascript
-  $('#s3_uploader').S3Uploader()
+  $('#s3_uploader').S3Uploader({
+    dropZone: $('#dropzone')
+  })
+
   $('#s3_uploader').bind('s3_uploads_start', function(data){
-    $('#spinner_holder').fadeIn()
+    $('#input').fadeOut('slow', function(){
+      $('#spinner_holder').fadeIn()
+    })
   })
-  $('#s3_uploader').bind('s3_uploads_complete', function(data){
-    //alert("complete")
-  })
+
   $('#s3_uploader').bind("ajax:success", function(e, data){
     $("#download_link").attr("href", data['download_url'])
     $('#spinner_holder').fadeOut('slow', function(){
       $('#results').fadeIn()
     })
-    //alert(data['download_url'])
   })
+
+  $(document).bind('dragover', function (e) {
+    var dropZone = $('#dropzone'),
+            timeout = window.dropZoneTimeout;
+    if (!timeout) {
+      dropZone.addClass('in');
+    } else {
+      clearTimeout(timeout);
+    }
+    var found = false,
+            node = e.target;
+    do {
+      if (node === dropZone[0]) {
+        found = true;
+        break;
+      }
+      node = node.parentNode;
+    } while (node != null);
+    if (found) {
+      dropZone.addClass('hover');
+    } else {
+      dropZone.removeClass('hover');
+    }
+    window.dropZoneTimeout = setTimeout(function () {
+      window.dropZoneTimeout = null;
+      dropZone.removeClass('in hover');
+    }, 500);
+  });
+
+  $(window).resize(function(){
+
+      $('#dropzone').css({
+          position:'absolute',
+          left: ($(window).width() - $('#dropzone').outerWidth())/2,
+          top: ($(window).height() - $('#dropzone').outerHeight())/2
+      });
+
+      $('#input').css({
+        position:'absolute',
+        left: ($('#dropzone').width() - $('#input').outerWidth())/2,
+        top: ($('#dropzone').height() - $('#input').outerHeight())/2
+      });
+      $('.spinner').css({
+        position:'absolute',
+        left: ($('#dropzone').width() - $('.spinner').outerWidth())/2,
+        top: ($('#dropzone').height() - $('.spinner').outerHeight())/2
+      });
+
+  });
+
+  $(window).resize()
+  $(window).resize()

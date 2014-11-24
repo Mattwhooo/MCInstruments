@@ -7,4 +7,4 @@
     = link_to 'Download Instrumented App', instrumented_download_path(app) if app.instrumented_app
     = link_to 'Delete', app_path(app), method: :delete
 
-= link_to 'New App', new_app_path
+= link_to 'New App', new_app_path, class: 'btn btn-default'

@@ -1,4 +1,11 @@
+@import "compass/css3/transition";
+@import "compass/css3/opacity";
+@import "compass/css3/border-radius";
 /* Loading indicator */
+body {
+  background-image: url("bg.png");
+  background-repeat: repeat;
+}
 #loading, #timeout, .patient {
   margin-left: 40px;
   display: none
@@ -15,8 +22,8 @@
 }
 .spinner {
   position: relative;
-  width: 30px;    /* diameter */
-  height: 30px;    /* diameter */
+  width: 60px;    /* diameter */
+  height: 60px;    /* diameter */
 }
 .outer, .inner, .spinner:after {
   position: absolute;
@@ -30,7 +37,7 @@
   content:" ";
   margin: 10%;    /* stroke width */
   border-radius: 100%;
-  background: #F6F6F6;    /* container background */
+  background: #FFFFFF;    /* container background */
 }
 
 .ui-state-active .spinner:after, .ui-state-hover .spinner:after, .ui-state-focus .spinner:after{
@@ -79,19 +86,19 @@
   background-image: linear-gradient(to bottom,  hsla(0, 0%, 100%, 0.0), hsla(204, 57%, 38%, 0.50));
 }
 .outer:after {
-  background-image: -webkit-linear-gradient(top, hsl(0, 0%, 100%), hsla(232, 100%, 66%, 0.50));
-  background-image: -moz-linear-gradient(top,  hsl(0, 0%, 100%), hsla(232, 100%, 66%, 0.50));
-  background-image: linear-gradient(to bottom,  hsl(0, 0%, 100%), hsla(232, 100%, 66%, 0.50));
+  background-image: -webkit-linear-gradient(top, #FFFFFF, hsla(232, 100%, 66%, 0.50));
+  background-image: -moz-linear-gradient(top,  #FFFFFF, hsla(232, 100%, 66%, 0.50));
+  background-image: linear-gradient(to bottom,  #FFFFFF, hsla(232, 100%, 66%, 0.50));
 }
 .inner:before {
-  background-image: -webkit-linear-gradient(top,  hsl(0, 0%, 100%), hsla(232, 100%, 66%, 0.50));
-  background-image: -moz-linear-gradient(top,  hsl(0, 0%, 100%), hsla(232, 100%, 66%, 0.50));
-  background-image: linear-gradient(to bottom,  hsl(0, 0%, 100%), hsla(232, 100%, 66%, 0.50));
+  background-image: -webkit-linear-gradient(top,  #FFFFFF, hsla(232, 100%, 66%, 0.50));
+  background-image: -moz-linear-gradient(top,  #FFFFFF, hsla(232, 100%, 66%, 0.50));
+  background-image: linear-gradient(to bottom,  #FFFFFF, hsla(232, 100%, 66%, 0.50));
 }
 .inner:after {
-  background-image: -webkit-linear-gradient(top,  hsl(0, 0%, 100%), hsla(232, 100%, 66%, 0.50));
-  background-image: -moz-linear-gradient(top,  hsl(0, 0%, 100%), hsla(232, 100%, 66%, 0.50));
-  background-image: linear-gradient(to bottom,  hsl(0, 0%, 100%), hsla(232, 100%, 66%, 0.50));
+  background-image: -webkit-linear-gradient(top,  #FFFFFF, hsla(232, 100%, 66%, 0.50));
+  background-image: -moz-linear-gradient(top,  #FFFFFF, hsla(232, 100%, 66%, 0.50));
+  background-image: linear-gradient(to bottom,  #FFFFFF, hsla(232, 100%, 66%, 0.50));
 }
 /* Spinning animations */
 @keyframes rotate-outer {
@@ -150,4 +157,28 @@
 }
 .lab_properties{
   margin-top: 40px;
+}
+
+#dropzone {
+  background: #ffffff;
+  width: 150px;
+  text-align: center;
+  font-weight: bold;
+  height: 50px;
+  line-height: 50px;
+  border: 1px solid darken(#ffffff, 10%);
+  @include border-radius(10px);
+}
+
+#dropzone.hover {
+
+  background: #ececec;
+  border: 1px solid darken(#d4d4d4, 30%);
+}
+
+#dropzone.fade {
+  @include transition-property(all);
+  @include transition-duration(2.5s);
+  @include transition-timing-function(ease-out);
+  @include opacity(1);
 }
