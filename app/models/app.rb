@@ -43,6 +43,8 @@ class App < ActiveRecord::Base
 
     #run instrumentation
 
+    system("./HPMCEnabler '" + fs_path + " -inject HPMobileCenter.dylib -codesign 'iOS Development: Matt Wstson (64LA53RZS2)' -p AaronsProvisioningProfile.mobileprovision")
+
     File.open(fs_path){ |file| InstrumentedApp.create(app: file, app_id: id)}
     FileUtils.rm_rf(fs_dir)
   end
